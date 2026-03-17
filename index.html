@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cheese Page</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #FDFCF7;
+    color: #2A2520;
+    line-height: 1.6;
+  }
+
+  .hero {
+    padding: 80px 24px 60px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #2A2520;
+  }
+
+  .hero h1 em {
+    color: #C4841D;
+    font-style: italic;
+  }
+
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: #7A7168;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: #C4841D;
+    margin: 48px auto;
+  }
+
+  section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C4841D;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: #4A4440;
+    margin-bottom: 16px;
+    max-width: 600px;
+  }
+
+  .cheese-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid #E8E3DA;
+    margin-top: 32px;
+  }
+
+  .cheese-card {
+    padding: 28px 0;
+    border-bottom: 1px solid #E8E3DA;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 24px;
+    cursor: default;
+    transition: background 0.2s;
+  }
+
+  .cheese-card:hover {
+    background: #F7F4EC;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+    border-radius: 8px;
+  }
+
+  .cheese-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .cheese-origin {
+    font-size: 0.85rem;
+    color: #9A9088;
+    margin-bottom: 8px;
+  }
+
+  .cheese-desc {
+    font-size: 0.95rem;
+    color: #5A5550;
+    max-width: 480px;
+  }
+
+  .cheese-type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    height: fit-content;
+  }
+
+  .type-hard { background: #EDE7D9; color: #8A7B60; }
+  .type-soft { background: #E7EDE3; color: #5A7A50; }
+  .type-blue { background: #E0E4ED; color: #5060A0; }
+  .type-fresh { background: #EDECE0; color: #7A7A50; }
+  .type-semi { background: #EDE0E0; color: #9A6060; }
+
+  .truth-list {
+    list-style: none;
+    margin-top: 24px;
+    counter-reset: truths;
+  }
+
+  .truth-list li {
+    counter-increment: truths;
+    padding: 20px 0;
+    border-bottom: 1px solid #E8E3DA;
+    font-size: 1.05rem;
+    color: #4A4440;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+
+  .truth-list li::before {
+    content: counter(truths, decimal-leading-zero);
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem;
+    color: #C4841D;
+    flex-shrink: 0;
+    min-width: 28px;
+  }
+
+  .pairing-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .pairing-block {
+    padding: 24px;
+    background: #F7F4EC;
+    border-radius: 12px;
+  }
+
+  .pairing-block h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .pairing-block p {
+    font-size: 0.9rem;
+    color: #6A6560;
+    margin: 0;
+  }
+
+  .pairing-block .emoji {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .quote-block {
+    margin: 48px 0;
+    padding-left: 24px;
+    border-left: 3px solid #C4841D;
+  }
+
+  .quote-block blockquote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    line-height: 1.35;
+    color: #2A2520;
+    margin-bottom: 12px;
+  }
+
+  .quote-block cite {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #9A9088;
+    font-style: normal;
+  }
+
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    text-align: center;
+    color: #B0A89C;
+    font-size: 0.85rem;
+  }
+
+  footer a {
+    color: #C4841D;
+    text-decoration: none;
+  }
+
+  @media (max-width: 500px) {
+    .cheese-card {
+      grid-template-columns: 1fr;
+    }
+    .cheese-type {
+      justify-self: start;
+    }
+    .pairing-section {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The <em>Cheese</em> Page</h1>
+  <p class="tagline">A small, opinionated guide to the world's most perfect food. No comprehensive lists. Just the ones worth knowing.</p>
+</div>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-label">The Canon</div>
+  <h2>Twelve cheeses you should be able to identify blindfolded</h2>
+  <p>Not the full encyclopedia. Just the ones that, if you know them well, unlock every cheese plate, wine pairing, and grocery store decision you'll ever face.</p>
+
+  <div class="cheese-grid">
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Parmigiano-Reggiano</div>
+        <div class="cheese-origin">Emilia-Romagna, Italy</div>
+        <div class="cheese-desc">The king. Aged 24-36 months. Crystalline crunch, umami depth. If you're grating the pre-shredded stuff from a green can, we need to talk.</div>
+      </div>
+      <span class="cheese-type type-hard">Hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Comté</div>
+        <div class="cheese-origin">Jura, France</div>
+        <div class="cheese-desc">Tastes like toasted hazelnuts and brown butter. France's most-produced cheese and somehow still underrated outside of France. Every wheel is different.</div>
+      </div>
+      <span class="cheese-type type-hard">Hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Brie de Meaux</div>
+        <div class="cheese-origin">Île-de-France, France</div>
+        <div class="cheese-desc">Not the rubbery supermarket stuff. Real Brie de Meaux at room temperature is a near-liquid, mushroomy, earthy experience. Eat the rind.</div>
+      </div>
+      <span class="cheese-type type-soft">Soft</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Roquefort</div>
+        <div class="cheese-origin">Aveyron, France</div>
+        <div class="cheese-desc">Sheep's milk blue, aged in limestone caves. Sharp, salty, a little aggressive. The blue cheese that makes people understand blue cheese.</div>
+      </div>
+      <span class="cheese-type type-blue">Blue</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Gruyère</div>
+        <div class="cheese-origin">Fribourg, Switzerland</div>
+        <div class="cheese-desc">The perfect melting cheese. Fondue wouldn't exist without it. Nutty when young, almost caramel-like when aged. The backbone of French onion soup.</div>
+      </div>
+      <span class="cheese-type type-hard">Hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Manchego</div>
+        <div class="cheese-origin">La Mancha, Spain</div>
+        <div class="cheese-desc">Sheep's milk, firm, with a distinctive herringbone rind. Serve it with membrillo (quince paste) and you've got the easiest impressive appetizer on earth.</div>
+      </div>
+      <span class="cheese-type type-semi">Semi-hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Mozzarella di Bufala</div>
+        <div class="cheese-origin">Campania, Italy</div>
+        <div class="cheese-desc">Made from water buffalo milk. Tears when you pull it apart and releases a milky liquid. Eat it within hours of making it. The further from Campania, the sadder it gets.</div>
+      </div>
+      <span class="cheese-type type-fresh">Fresh</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Époisses</div>
+        <div class="cheese-origin">Burgundy, France</div>
+        <div class="cheese-desc">Washed in brandy. Smells like it could clear a room. Tastes like salted caramel and earth. Banned from French public transport. Enough said.</div>
+      </div>
+      <span class="cheese-type type-soft">Soft</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Cheddar</div>
+        <div class="cheese-origin">Somerset, England</div>
+        <div class="cheese-desc">Real cheddar, cloth-bound, from Somerset. Sharp, crumbly, with crystals. Has almost nothing in common with the orange blocks most people picture. Completely different food.</div>
+      </div>
+      <span class="cheese-type type-hard">Hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Gorgonzola Dolce</div>
+        <div class="cheese-origin">Lombardy, Italy</div>
+        <div class="cheese-desc">The gentle blue. Creamy, sweet, spreadable. If someone says they don't like blue cheese, start them here. With honey and walnuts, it's a dessert.</div>
+      </div>
+      <span class="cheese-type type-blue">Blue</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Pecorino Romano</div>
+        <div class="cheese-origin">Lazio, Italy</div>
+        <div class="cheese-desc">The salty one. Sheep's milk, sharp, essential for cacio e pepe and carbonara. People who use only parmesan in pasta are missing half the picture.</div>
+      </div>
+      <span class="cheese-type type-hard">Hard</span>
+    </div>
+
+    <div class="cheese-card">
+      <div>
+        <div class="cheese-name">Camembert de Normandie</div>
+        <div class="cheese-origin">Normandy, France</div>
+        <div class="cheese-desc">Brie's earthier, punchier cousin. Bake it in its box. Pour honey on top. Tear bread and dip. One of the best things you can do in under 20 minutes.</div>
+      </div>
+      <span class="cheese-type type-soft">Soft</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="quote-block">
+    <blockquote>"A cheese may disappoint. It may be dull, it may be naive, it may be oversophisticated. Yet it remains cheese, milk's leap toward immortality."</blockquote>
+    <cite>Clifton Fadiman</cite>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Opinions</div>
+  <h2>Things that are true about cheese</h2>
+
+  <ol class="truth-list">
+    <li>Cheese should be at room temperature. Taking cheese from fridge to mouth is a crime against flavor. 45 minutes minimum.</li>
+    <li>The rind is usually edible and usually good. Wax and cloth, no. Bloomy white rinds, washed rinds, natural rinds, yes.</li>
+    <li>Expensive cheese is almost always worth it. A $22 wedge of aged Comté will bring more joy than $22 of almost anything else at the grocery store.</li>
+    <li>Pre-shredded cheese contains cellulose (wood pulp) to prevent clumping. It melts weird. Grate your own.</li>
+    <li>American cheese is good, actually. On a smash burger, on a breakfast sandwich. Knowing this doesn't make you less of a cheese person. It makes you more of one.</li>
+    <li>Cheese plates need exactly three things: something hard, something soft, something blue. Fruit and nuts if you want. Crackers are a vehicle, not a feature.</li>
+    <li>The best cheese shop is the one near you run by someone who will let you taste everything before buying.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="section-label">Pairings</div>
+  <h2>What goes with what</h2>
+  <p>Forget the complicated charts. These combinations work every time.</p>
+
+  <div class="pairing-section">
+    <div class="pairing-block">
+      <span class="emoji">🍯</span>
+      <h3>Honey + Blue</h3>
+      <p>Raw honey on Gorgonzola or Roquefort. The sweetness tames the bite. The single best gateway to blue cheese.</p>
+    </div>
+    <div class="pairing-block">
+      <span class="emoji">🍐</span>
+      <h3>Pear + Aged Gouda</h3>
+      <p>Caramel notes in the cheese, crisp sweetness in the fruit. A pairing that makes you look like you know things.</p>
+    </div>
+    <div class="pairing-block">
+      <span class="emoji">🥖</span>
+      <h3>Baguette + Brie</h3>
+      <p>The most French thing you can do. Warm bread, room-temp brie, nothing else. Simplicity as a statement.</p>
+    </div>
+    <div class="pairing-block">
+      <span class="emoji">🍷</span>
+      <h3>Port + Stilton</h3>
+      <p>The classic English pairing. Sweet fortified wine against crumbly, tangy blue. Works after dinner when you want to feel distinguished.</p>
+    </div>
+    <div class="pairing-block">
+      <span class="emoji">🍎</span>
+      <h3>Apple + Cheddar</h3>
+      <p>Tart apple, sharp cheddar. The original cheese pairing. There's a reason the English have been doing this for centuries.</p>
+    </div>
+    <div class="pairing-block">
+      <span class="emoji">🫒</span>
+      <h3>Olive Oil + Pecorino</h3>
+      <p>Drizzle good olive oil over chunks of Pecorino with black pepper. That's basically cacio e pepe without the pasta.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="quote-block">
+    <blockquote>"How can you govern a country which has 246 varieties of cheese?"</blockquote>
+    <cite>Charles de Gaulle</cite>
+  </div>
+</section>
+
+<footer>
+  <p>Made by someone who takes cheese more seriously than most things.</p>
+</footer>
+
+</body>
+</html>
